@@ -30,7 +30,8 @@ const CommonTable: React.FC<Props> = ({ data }) => {
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState("");
-  const [statusValue, setStatusValue] = useState<number | string >('');
+  const [statusValue, setStatusValue] = useState<number | string>("");
+  const [debilState, setDebilState] = useState<boolean>(false);
 
   const handleSubmit = () => {
     const changingElement = data.find((item) => item.id === currentId);
@@ -42,7 +43,10 @@ const CommonTable: React.FC<Props> = ({ data }) => {
     setOpen(false);
   };
 
-  useEffect(() => setSearchedData(data));
+  useEffect(() => {
+    setSearchedData(data);
+    setDebilState(true)
+  }, [debilState]);
   const requestSearch = (searchedVal: string) => {
     const filteredRows = data?.filter((row: DataType) => {
       return (
@@ -83,7 +87,11 @@ const CommonTable: React.FC<Props> = ({ data }) => {
         noValidate
         autoComplete="off"
         bgcolor="white"
-        sx={{ display: "flex", flexDirection: "row", justifyContent: 'space-between' }}
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
       >
         <TextField
           id="outlined-search"
@@ -110,7 +118,14 @@ const CommonTable: React.FC<Props> = ({ data }) => {
           </FormControl>
         </Box>
       </Box>
-      <TableContainer component={Paper} sx={{ bgcolor: "whitesmoke", borderTopLeftRadius: 0,  borderTopRightRadius: 0 }}>
+      <TableContainer
+        component={Paper}
+        sx={{
+          bgcolor: "whitesmoke",
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
+        }}
+      >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
