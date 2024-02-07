@@ -1,4 +1,3 @@
-import React from 'react'
 import CommonTable from '../common/Table'
 import { PricePlansData } from '../../fakeDb'
 function PricePlans() {
